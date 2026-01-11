@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Profile Playground</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>Profile Playground</h1>
+
+  <!-- Load profile -->
+  <section>
+    <h2>Edit Profile</h2>
+    <input id="profileId" placeholder="Enter Profile ID" />
+    <button onclick="loadProfile()">Load Profile</button>
+  </section>
+
+  <!-- Edit form -->
+  <section id="editSection" style="display:none;">
+    <textarea id="profileJson" rows="20"></textarea>
+    <br />
+    <button onclick="updateProfile()">Update Profile</button>
+  </section>
+
+  <!-- Skill search -->
+  <section>
+    <h2>Search by Skill</h2>
+    <input id="skillInput" placeholder="e.g. ai, ml, python" />
+    <button onclick="searchSkill()">Search</button>
+    <pre id="searchResult"></pre>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
