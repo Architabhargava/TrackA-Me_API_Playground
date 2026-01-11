@@ -1,12 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>TrackA-Me Profile Playground</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
 <body>
   <h1>TrackA-Me Profile Playground</h1>
 
   <!-- CREATE PROFILE -->
   <section>
     <h2>Create Profile</h2>
-    <textarea id="createJson" rows="14" placeholder="Enter profile JSON here"></textarea>
-    <br />
+    <textarea id="createJson" rows="14"></textarea>
     <button onclick="createProfile()">Create Profile</button>
+    <p class="status" id="createStatus"></p>
   </section>
 
   <!-- VIEW ALL PROFILES -->
@@ -21,9 +29,10 @@
     <h2>Edit Profile</h2>
     <input id="profileId" placeholder="Enter Profile ID" />
     <button onclick="loadProfile()">Load Profile</button>
+
     <textarea id="profileJson" rows="14"></textarea>
-    <br />
     <button onclick="updateProfile()">Update Profile</button>
+    <p class="status" id="updateStatus"></p>
   </section>
 
   <!-- SEARCH -->
@@ -36,3 +45,4 @@
 
   <script src="script.js"></script>
 </body>
+</html>
