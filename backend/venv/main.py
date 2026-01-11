@@ -6,6 +6,14 @@ This file:
 - Registers routes
 - Manages DB sessions
 """
+from fastapi.middleware.cors import CORSMiddleware
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 from fastapi import FastAPI, Depends
 from sqlalchemy.orm import Session
