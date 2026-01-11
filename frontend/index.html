@@ -1,35 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Profile Playground</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
 <body>
-  <h1>Profile Playground</h1>
+  <h1>TrackA-Me Profile Playground</h1>
 
-  <!-- Load profile -->
+  <!-- CREATE PROFILE -->
+  <section>
+    <h2>Create Profile</h2>
+    <textarea id="createJson" rows="14" placeholder="Enter profile JSON here"></textarea>
+    <br />
+    <button onclick="createProfile()">Create Profile</button>
+  </section>
+
+  <!-- VIEW ALL PROFILES -->
+  <section>
+    <h2>All Profiles</h2>
+    <button onclick="loadAllProfiles()">Load Profiles</button>
+    <pre id="profilesOutput"></pre>
+  </section>
+
+  <!-- EDIT PROFILE -->
   <section>
     <h2>Edit Profile</h2>
     <input id="profileId" placeholder="Enter Profile ID" />
     <button onclick="loadProfile()">Load Profile</button>
-  </section>
-
-  <!-- Edit form -->
-  <section id="editSection" style="display:none;">
-    <textarea id="profileJson" rows="20"></textarea>
+    <textarea id="profileJson" rows="14"></textarea>
     <br />
     <button onclick="updateProfile()">Update Profile</button>
   </section>
 
-  <!-- Skill search -->
+  <!-- SEARCH -->
   <section>
     <h2>Search by Skill</h2>
-    <input id="skillInput" placeholder="e.g. ai, ml, python" />
+    <input id="skillInput" placeholder="ai, ml, python" />
     <button onclick="searchSkill()">Search</button>
     <pre id="searchResult"></pre>
   </section>
 
   <script src="script.js"></script>
 </body>
-</html>
