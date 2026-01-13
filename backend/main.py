@@ -35,7 +35,12 @@ def health_check():
 
 @app.post("/profile")
 def create_profile(profile: ProfileCreate, db: Session = Depends(get_db)):
-    return crud.create_profile(db, profile)
+    p = crud.create_profile(db, profile)
+    return {
+        "id": p.id,
+        "message": "Profile created successfully"
+    }
+
 
 @app.get("/profile/{profile_id}/edit")
 def get_profile_for_edit(profile_id: int, db: Session = Depends(get_db)):
