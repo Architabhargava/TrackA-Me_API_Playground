@@ -11,11 +11,25 @@
 
   <!-- CREATE PROFILE -->
   <section>
-    <h2>Create Profile</h2>
-    <textarea id="createJson" rows="14"></textarea>
-    <button onclick="createProfile()">Create Profile</button>
-    <p class="status" id="createStatus"></p>
-  </section>
+  <h2>Create Profile</h2>
+
+  <input id="name" placeholder="Full Name" />
+  <input id="email" placeholder="Email" />
+  <input id="education" placeholder="Education" />
+  <input id="work" placeholder="Work Experience" />
+  <input id="links" placeholder="GitHub | LinkedIn" />
+
+  <input id="skills" placeholder="Skills (comma separated)" />
+
+  <h4>Project</h4>
+  <input id="projectTitle" placeholder="Project Title" />
+  <input id="projectDescription" placeholder="Project Description" />
+  <input id="projectTech" placeholder="Tech Stack (comma separated)" />
+
+  <button onclick="createProfile()">Create Profile</button>
+  <p id="createStatus"></p>
+</section>
+
 
   <!-- VIEW ALL PROFILES -->
   <section>
