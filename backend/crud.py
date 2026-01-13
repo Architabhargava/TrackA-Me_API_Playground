@@ -190,6 +190,7 @@ def update_profile(db: Session, profile_id: int, data):
 
 def get_profile_for_update(db: Session, profile_id: int):
     profile = db.query(Profile).filter(Profile.id == profile_id).first()
+
     if not profile:
         return None
 
