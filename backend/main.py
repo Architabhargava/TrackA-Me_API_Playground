@@ -10,10 +10,10 @@ from schemas import ProfileCreate, ProfileUpdate
 # Create database tables
 models.Base.metadata.create_all(bind=engine)
 
-# ✅ CREATE APP FIRST
+
 app = FastAPI(title="TrackA-Me API")
 
-# ✅ THEN ADD MIDDLEWARE
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
