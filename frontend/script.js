@@ -2,17 +2,25 @@ const BACKEND_URL = "https://tracka-me-api-playground.onrender.com";
 
 
 
-async function loadProfile() {
-  const id = document.getElementById("profileId").value;
+async function loadAllProfiles() {
+  const output = document.getElementById("profilesOutput");
+  output.textContent = "Loading profiles...";
 
-  const res = await fetch(`${BACKEND_URL}/profile/${id}/edit`);
-  const data = await res.json();
+  try {
+    const res = await fetch(`${BACKEND_URL}/profiles`);
+    const data = await res.json();
 
-  document.getElementById("profileJson").value =
-    JSON.stringify(data, null, 2);
+    if (!data || data.length === 0) {
+      output.textContent = "No profiles found.";
+      return;
+    }
 
-  document.getElementById("editSection").style.display = "block";
+    output.textContent = JSON.stringify(data, null, 2);
+  } catch (err) {
+    output.textContent = "Failed to load profiles.";
+  }
 }
+
 
 async function updateProfile() {
   const id = document.getElementById("profileId").value;
