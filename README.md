@@ -2,19 +2,12 @@
 
 # (End-to-End Profile Management System)
 
-TrackA-Me is a deliberately engineered
-full-stack application built to demonstrate how I approach real software
-engineering problems - not just making something work, but making it clean,
-explainable, debuggable, deployable, and testable.
+TrackA-Me is a deliberately engineered full-stack application built to demonstrate how I approach real software
+engineering problems - not just making something work, but making it clean, explainable, debuggable, deployable, and testable.
 
-This project goes beyond basic CRUD by intentionally incorporating:-
+This project goes beyond basic CRUD by intentionally incorporating:- **authentication, rate limiting, database integrity, search with fallbacks, CI/CD, deployment, and frontend–backend integration.**
 
-**authentication, rate limiting, database integrity, search with fallbacks,
-CI/CD, deployment, and frontend–backend integration.**
-
-This README is intentionally long and explicit so that anyone reviewing the
-project can understand what exists, why it exists, how it works, and how to use
-it without external explanation.
+This README is intentionally long and explicit so that anyone reviewing the project can understand what exists, why it exists, how it works, and how to use it without external explanation.
 
 ## Live URLs
 
@@ -27,15 +20,11 @@ Swagger / OpenAPI Docs: [https://tracka-me-api-playground.onrender.com/docs](htt
 
 ## Problem Statement
 
-The goal was to build a profile management
-system where profiles can be **created, viewed, updated, and searched by skill**. The
-project intentionally focuses not just on functionality, but on engineering
-concerns such as validation, security, reliability, and maintainability.
+The goal was to build a profile management system where profiles can be **created, viewed, updated, and searched by skill**. The project intentionally focuses not just on functionality, but on engineering concerns such as validation, security, reliability, and maintainability.
 
 ## High-Level Architecture
 
-The system follows a simple client–server
-architecture:
+The system follows a simple client–server architecture:
 
 • **Frontend**: Static HTML, CSS, Vanilla JavaScript (Netlify)
 
@@ -132,8 +121,7 @@ frontend/
 
 ## Authentication & Authorization
 
-Write operations are protected using HTTP
-Basic Authentication.
+Write operations are protected using HTTP Basic Authentication.
 
 Credentials (IMPORTANT):
 
@@ -141,13 +129,11 @@ Credentials (IMPORTANT):
 
 **Password: tracka**
 
-Only create and update operations require authentication. Read operations are
-intentionally public.
+Only create and update operations require authentication. Read operations are intentionally public.
 
 ## Rate Limiting
 
-Profile creation is rate limited to 5
-requests per minute per IP. Exceeding this limit returns HTTP 429 (Too Many
+Profile creation is rate limited to 5 requests per minute per IP. Exceeding this limit returns HTTP 429 (Too Many
 Requests).
 
 ## Database Design & Integrity
