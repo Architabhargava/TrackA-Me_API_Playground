@@ -25,9 +25,11 @@ async function createProfile() {
     return;
   }
 
+  
+
   const body = {
     name: document.getElementById("name").value,
-    email: document.getElementById("email").value,
+    email: email,
     education: document.getElementById("education").value,
     work: document.getElementById("work").value,
     links: document.getElementById("links").value,
@@ -43,6 +45,13 @@ async function createProfile() {
       }
     ]
   };
+
+  const email = document.getElementById("email").value.trim();
+
+  if (!email) {
+    alert("Email is required and must be unique");
+    return;
+  }
 
   try {
     const res = await fetch(`${BACKEND_URL}/profile`, {
