@@ -47,8 +47,8 @@ def rate_limit_handler(request, exc):
 security = HTTPBasic()
 
 def verify_user(credentials: HTTPBasicCredentials = Depends(security)):
-    correct_username = secrets.compare_digest(credentials.username, "admin")
-    correct_password = secrets.compare_digest(credentials.password, "trackA")
+    correct_username = secrets.compare_digest(credentials.username, "Predusk")
+    correct_password = secrets.compare_digest(credentials.password, "tracka")
 
     if not (correct_username and correct_password):
         raise HTTPException(
