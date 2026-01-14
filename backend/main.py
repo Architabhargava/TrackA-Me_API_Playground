@@ -7,6 +7,8 @@ from slowapi.util import get_remote_address
 from slowapi.errors import RateLimitExceeded
 from fastapi.responses import JSONResponse
 from fastapi import Request
+from fastapi import Security
+
 
 import secrets
 
@@ -77,7 +79,7 @@ def create_profile(
     request: Request,   # ✅ REQUIRED by slowapi
     profile: ProfileCreate,
     db: Session = Depends(get_db),
-    user=Depends(verify_user)
+    user: str = Security(verify_user)
 ):
 
     logger.info("Creating profile for %s", profile.email)
@@ -90,7 +92,7 @@ def update_profile(
     profile_id: int,
     profile: ProfileUpdate,
     db: Session = Depends(get_db),
-    user=Depends(verify_user)
+    user: str = Security(verify_user)
 ):
     logger.info("Updating profile %s", profile_id)
     updated = crud.update_profile(db, profile_id, profile)
