@@ -54,16 +54,22 @@ async function createProfile() {
       body: JSON.stringify(body)
     });
 
+   
+
     if (res.status === 401) {
-      alert("Unauthorized: Invalid username or password");
+      alert("Unauthorized: please check username and password");
       return;
     }
+
+    if (res.status === 429) {
+      alert("Rate limit exceeded: please wait 1 minute and try again");
+      return;
+  }
 
     if (!res.ok) {
-      alert("Create failed (rate limit or server error)");
+      alert("Server error while creating profile");
       return;
-    }
-
+  }
     const data = await res.json();
     document.getElementById("createStatus").textContent =
       `Profile created successfully with ID: ${data.id}`;
