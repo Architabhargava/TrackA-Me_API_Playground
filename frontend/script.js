@@ -25,11 +25,9 @@ async function createProfile() {
     return;
   }
 
-  
-
   const body = {
     name: document.getElementById("name").value,
-    email: email,
+    email: document.getElementById("email").value,
     education: document.getElementById("education").value,
     work: document.getElementById("work").value,
     links: document.getElementById("links").value,
@@ -46,13 +44,6 @@ async function createProfile() {
     ]
   };
 
-  const email = document.getElementById("email").value.trim();
-
-  if (!email) {
-    alert("Email is required and must be unique");
-    return;
-  }
-
   try {
     const res = await fetch(`${BACKEND_URL}/profile`, {
       method: "POST",
@@ -64,7 +55,6 @@ async function createProfile() {
     });
 
    
-
     if (res.status === 401) {
       alert("Unauthorized: please check username and password");
       return;
@@ -77,7 +67,7 @@ async function createProfile() {
 
     if (!res.ok) {
       alert("Server error while creating profile");
-      return;
+    return;
   }
     const data = await res.json();
     document.getElementById("createStatus").textContent =
