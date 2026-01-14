@@ -6,7 +6,10 @@ from slowapi import Limiter
 from slowapi.util import get_remote_address
 from slowapi.errors import RateLimitExceeded
 from fastapi.responses import JSONResponse
+from fastapi import Request
+
 import secrets
+
 
 import models
 import crud
@@ -71,10 +74,12 @@ def health():
 @app.post("/profile")
 @limiter.limit("5/minute")
 def create_profile(
+    request: Request,   # ✅ REQUIRED by slowapi
     profile: ProfileCreate,
     db: Session = Depends(get_db),
     user=Depends(verify_user)
 ):
+
     logger.info("Creating profile for %s", profile.email)
     p = crud.create_profile(db, profile)
     return {"id": p.id, "message": "Profile created successfully"}
