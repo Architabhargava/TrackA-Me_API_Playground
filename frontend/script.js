@@ -1,6 +1,19 @@
 const BACKEND_URL = "https://tracka-me-api-playground.onrender.com";
 
-/* ---------------- CREATE PROFILE ---------------- */
+/* ---------- AUTH HEADER ---------- */
+function getAuthHeader() {
+  const user = document.getElementById("authUser").value;
+  const pass = document.getElementById("authPass").value;
+
+  if (!user || !pass) return {};
+
+  const token = btoa(`${user}:${pass}`);
+  return {
+    "Authorization": `Basic ${token}`
+  };
+}
+
+/* ---------- CREATE PROFILE ---------- */
 async function createProfile() {
   try {
     const body = {
@@ -24,63 +37,58 @@ async function createProfile() {
 
     const res = await fetch(`${BACKEND_URL}/profile`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        ...getAuthHeader()
+      },
       body: JSON.stringify(body)
     });
 
-    const data = await res.json();
-
-    document.getElementById("createStatus").textContent =
-      `Profile created successfully with ID: ${data.id}`;
-  } catch (err) {
-    document.getElementById("createStatus").textContent =
-      "Failed to create profile";
-  }
-}
-
-/* ---------------- SHOW ALL PROFILES ---------------- */
-async function loadAllProfiles() {
-  const output = document.getElementById("profilesOutput");
-  output.textContent = "Loading profiles...";
-
-  try {
-    const res = await fetch(`${BACKEND_URL}/profiles`);
-    const data = await res.json();
-
-    if (data.length === 0) {
-      output.textContent = "No profiles found.";
+    if (!res.ok) {
+      alert("Unauthorized or rate-limited");
       return;
     }
 
-    output.textContent = JSON.stringify(data, null, 2);
-  } catch (err) {
-    output.textContent = "Failed to load profiles.";
+    const data = await res.json();
+    document.getElementById("createStatus").textContent =
+      `Profile created with ID: ${data.id}`;
+
+  } catch {
+    alert("Create failed");
   }
 }
 
-/* ---------------- LOAD PROFILE FOR EDIT ---------------- */
+/* ---------- LOAD ALL PROFILES (PUBLIC) ---------- */
+async function loadAllProfiles() {
+  const out = document.getElementById("profilesOutput");
+  out.textContent = "Loading...";
+
+  const res = await fetch(`${BACKEND_URL}/profiles`);
+  const data = await res.json();
+
+  out.textContent = JSON.stringify(data, null, 2);
+}
+
+/* ---------- LOAD PROFILE FOR EDIT ---------- */
 async function loadProfile() {
   const id = parseInt(document.getElementById("profileId").value, 10);
-
   if (isNaN(id)) {
-    alert("Please enter a valid numeric Profile ID");
+    alert("Invalid ID");
     return;
   }
 
-  try {
-    const res = await fetch(`${BACKEND_URL}/profile/${id}/edit`);
-    if (!res.ok) throw new Error();
-
-    const data = await res.json();
-
-    document.getElementById("profileJson").value =
-      JSON.stringify(data, null, 2);
-  } catch {
+  const res = await fetch(`${BACKEND_URL}/profile/${id}/edit`);
+  if (!res.ok) {
     alert("Profile not found");
+    return;
   }
+
+  const data = await res.json();
+  document.getElementById("profileJson").value =
+    JSON.stringify(data, null, 2);
 }
 
-/* ---------------- UPDATE PROFILE ---------------- */
+/* ---------- UPDATE PROFILE ---------- */
 async function updateProfile() {
   try {
     const id = parseInt(document.getElementById("profileId").value, 10);
@@ -88,27 +96,35 @@ async function updateProfile() {
       document.getElementById("profileJson").value
     );
 
-    await fetch(`${BACKEND_URL}/profile/${id}`, {
+    const res = await fetch(`${BACKEND_URL}/profile/${id}`, {
       method: "PUT",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        ...getAuthHeader()
+      },
       body: JSON.stringify(body)
     });
 
+    if (!res.ok) {
+      alert("Unauthorized or failed update");
+      return;
+    }
+
     alert("Profile updated successfully");
   } catch {
-    alert("Failed to update profile");
+    alert("Update failed");
   }
 }
 
-/* ---------------- SEARCH BY SKILL ---------------- */
+/* ---------- SEARCH (PUBLIC) ---------- */
 async function searchSkill() {
   const skill = document.getElementById("skillInput").value;
 
   const res = await fetch(
     `${BACKEND_URL}/profiles/search?skill=${skill}`
   );
-  const data = await res.json();
 
+  const data = await res.json();
   document.getElementById("searchResult").textContent =
     JSON.stringify(data, null, 2);
 }
